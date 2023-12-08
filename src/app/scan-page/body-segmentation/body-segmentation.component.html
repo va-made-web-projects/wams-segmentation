@@ -12,17 +12,16 @@
   </div>
 </div>
 <div class="flex justify-center">
-  <ion-button *ngIf="videoRenderCanvas" class="btn">Measure</ion-button>
-</div>
+  <ion-button *ngIf="videoRenderCanvas" class="btn" (click)="reverseCamera()">
+  <ion-icon name="camera-reverse-outline"></ion-icon>
 
-<div>
-  <ion-input [(ngModel)]="pdmm" placeholder="PD Measurement (mm)" type="number"></ion-input>
+  </ion-button>
 </div>
 <div>
-  <ion-label>PD Pixels {{pixelPdDistance | number : '1.2-2' }} (pixels)</ion-label>
+  <ion-label>Person Distance to Camera  {{personDistanceToCamera | number : '1.2-2' }} (in)</ion-label>
 </div>
 <div>
-  <ion-label>Shoulder Width Pixels{{pixelShoulderWidth | number : '1.2-2' }} (pixels)</ion-label>
+  <ion-label>Shoulder Width {{realWorldShoulderWidth | number : '1.2-2' }} (in)</ion-label>
 </div>
 
 <ng-template #loading>

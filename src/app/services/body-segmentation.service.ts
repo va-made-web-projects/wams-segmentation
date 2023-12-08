@@ -55,4 +55,24 @@ export class BodySegmentationService {
       this._segmentationState.next(parts);
     });
   }
+
+  // Define a function to segment person parts with retry mechanism
+  public segmentPersonWithRetry = async (input: any, retryCount: number = 5) => {
+  try {
+    const parts: bodyPix.SemanticPartSegmentation = await this.model.segmentPersonParts(input, segmentationProperties);
+    this._segmentationState.next(parts);
+  } catch (error) {
+    console.error('Error in segmentPersonParts:', error);
+
+    // Retry if there are remaining attempts
+    if (retryCount > 0) {
+      console.log(`Retrying... Attempts left: ${retryCount}`);
+      setTimeout(() => {
+        this.segmentPersonWithRetry(input, retryCount - 1);
+      }, 1000); // Adjust the delay as needed (e.g., 1000 milliseconds or 1 second)
+    } else {
+      console.error('Max retries reached. Unable to segment person parts.');
+    }
+  }
+};
 }

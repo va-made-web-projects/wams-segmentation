@@ -7,11 +7,14 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 2</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+<div class="w-full h-full flex flex-col items-center">
+  <span *ngIf="!hasGetUserMedia()" class="text-center text-3xl">Webcam is not supported by your browser</span>
+  <button *ngIf="hasGetUserMedia() && !videoRenderCanvas" class="btn" (click)="enableCam()">Enable Webcam</button>
+  <div class="webcam relative pb-2/3 flex-1">
+    <video #webcam class="object-contain h-96" autoplay></video>
+    <canvas #webcamCanvas class="overlay object-contain h-96"></canvas>
+    <canvas #imageCanvas class="overlay object-contain h-96"></canvas>
+  </div>
+</div>
 </ion-content>
